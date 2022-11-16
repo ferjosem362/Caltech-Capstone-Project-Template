@@ -114,7 +114,23 @@ def update_accounts(account_id):
 # DELETE AN ACCOUNT
 ######################################################################
 
-# ... place you code here to DELETE an account ...
+@app.route("/accounts/<int:account_id>", methods=["DELETE"])
+def delete_accounts(account_id):
+    """
+    Delete an account
+    """
+    app.logger.info("Request to delete an Account with id: %s", account_id)
+
+    account = Account.find(account_id)
+    if account:
+        account.delete()
+
+    return "", status.HTTP_204_NO_CONTENT
+
+def test_method_not_allowed(self):
+    """It should not allow an illegal method call"""
+    resp = self.client.delete(BASE_URL)
+    self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 ######################################################################
